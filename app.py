@@ -35,7 +35,7 @@ def sendMail():
 class TransactionNotify(object):
   @expose
   @tools.json_in()
-  def index(self):
+  def starling(self):
     counterPartyUid = request.json['content']['counterPartyUid']
     if counterPartyUid == COUNTER_PARTY_UID:
       sendMail()
