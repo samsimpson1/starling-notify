@@ -1,7 +1,7 @@
 from os import environ
 from urllib.parse import quote_plus
 from cherrypy import quickstart, expose, request
-from cherrypy import tools
+from cherrypy import tools, config
 from requests import post
 
 OWED_AMOUNT = environ.get("OWED_AMOUNT", "17.00")
@@ -39,5 +39,9 @@ class TransactionNotify(object):
     counterPartyUid = request.json['content']['counterPartyUid']
     if counterPartyUid == COUNTER_PARTY_UID:
       sendMail()
-    
+
+config.update({
+  "server.socket_host": "0.0.0.0"
+})
+
 quickstart(TransactionNotify())
